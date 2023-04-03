@@ -1,4 +1,5 @@
 import java.security.SecureRandom;
+import javax.swing.*;
 
 public class Aereo extends Thread
 {
@@ -12,6 +13,7 @@ public class Aereo extends Thread
     String codice;
     String modello;
     Aeroporto aeroporto;
+    JLabel immagine;
     public Aereo(Aeroporto aeroporto)
     {
         if(Math.random() < .5){
@@ -22,6 +24,8 @@ public class Aereo extends Thread
         this.aeroporto = aeroporto;
         codice = generaCodice();
         modello = generaModello();
+        immagine = new JLabel(new ImageIcon(generaImmagine()));
+        aeroporto.finestra.add(immagine);
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public Aereo(String stato, Aeroporto aeroporto)
@@ -30,6 +34,16 @@ public class Aereo extends Thread
         this.aeroporto = aeroporto;
         codice = generaCodice();
         modello = generaModello();
+        System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
+    }
+    public Aereo(String modello, String stato, Aeroporto aeroporto)
+    {
+        this.stato = stato;
+        this.aeroporto = aeroporto;
+        codice = generaCodice();
+        this.modello = modello;
+        immagine = new JLabel(new ImageIcon(generaImmagine()));
+        aeroporto.finestra.add(immagine);
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public String generaCodice() {
@@ -47,13 +61,19 @@ public class Aereo extends Thread
         return stringa;
     }
     
-    public String generaModello() {
+    public String generaModello(){
         return modelliAerei[random.nextInt(modelliAerei.length)];
+    }
+    
+    public String generaImmagine(){
+        System.out.println("immagini/" + modello + ".png");
+        return "immagini/" + modello + ".png";
     }
     
     public void run(){
         if(stato == "inAria"){
             aeroporto.torreDiControllo.richiediPista();
         }
+        
     }
 }
