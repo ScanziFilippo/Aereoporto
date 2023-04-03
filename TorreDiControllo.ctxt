@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=TorreDiControllo
+comment1.params=aeroporto
+comment1.target=TorreDiControllo(Aeroporto)
+comment2.params=
+comment2.target=void\ generaAerei()
+comment3.params=
+comment3.target=void\ run()
+comment4.params=
+comment4.target=Pista\ richiediPista()
+numComments=5

@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Pista
+comment1.params=nome
+comment1.target=Pista(java.lang.String)
+comment2.params=
+comment2.target=void\ richiediPista()
+numComments=3

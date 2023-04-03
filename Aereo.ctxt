@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Aereo
+comment1.params=aeroporto
+comment1.target=Aereo(Aeroporto)
+comment2.params=stato\ aeroporto
+comment2.target=Aereo(java.lang.String,\ Aeroporto)
+comment3.params=
+comment3.target=java.lang.String\ generaCodice()
+comment4.params=
+comment4.target=java.lang.String\ generaModello()
+comment5.params=
+comment5.target=void\ run()
+numComments=6
