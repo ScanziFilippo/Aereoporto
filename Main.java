@@ -1,12 +1,16 @@
 public class Main
 {
-    public Aeroporto aeroporto;
+    public static Aeroporto aeroporto;
     public Main()
     {
-        aeroporto = new Aeroporto();
-        aeroporto.torreDiControllo.generaAerei();
+        main(new String[1]);
     }
     public void prova(){
         aeroporto.torreDiControllo.aerei.put("ABCDE",new Aereo("Boeing 747", "inAria", aeroporto));
+    }
+    public static void main(String args[]){
+        aeroporto = new Aeroporto();
+        aeroporto.torreDiControllo.generaAerei();
+        aeroporto.finestra.concludi();
     }
 }

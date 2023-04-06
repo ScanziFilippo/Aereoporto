@@ -26,6 +26,8 @@ public class Aereo extends Thread
         modello = generaModello();
         immagine = new JLabel(new ImageIcon(generaImmagine()));
         aeroporto.finestra.add(immagine);
+        immagine.setSize(640, 587);
+        immagine.setLocation(0,0);
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public Aereo(String stato, Aeroporto aeroporto)
@@ -34,6 +36,8 @@ public class Aereo extends Thread
         this.aeroporto = aeroporto;
         codice = generaCodice();
         modello = generaModello();
+        immagine = new JLabel(new ImageIcon(generaImmagine()));
+        aeroporto.finestra.add(immagine);
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public Aereo(String modello, String stato, Aeroporto aeroporto)
@@ -66,7 +70,7 @@ public class Aereo extends Thread
     }
     
     public String generaImmagine(){
-        System.out.println("immagini/" + modello + ".png");
+        //System.out.println("immagini/" + modello + ".png");
         return "immagini/" + modello + ".png";
     }
     
@@ -74,6 +78,5 @@ public class Aereo extends Thread
         if(stato == "inAria"){
             aeroporto.torreDiControllo.richiediPista();
         }
-        
     }
 }
