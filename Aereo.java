@@ -31,7 +31,7 @@ public class Aereo extends Thread
         immagine = new JLabel(icona);
         aeroporto.finestra.add(immagine);
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
-        immagine.setLocation(0,(int)(Math.random()*800));
+        immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public Aereo(Stato stato, Aeroporto aeroporto)
@@ -44,7 +44,7 @@ public class Aereo extends Thread
         immagine = new JLabel(icona);
         aeroporto.finestra.add(immagine);
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
-        immagine.setLocation(0,(int)(Math.random()*800));
+        immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public Aereo(String modello, Stato stato, Aeroporto aeroporto)
@@ -57,7 +57,7 @@ public class Aereo extends Thread
         immagine = new JLabel(icona);
         aeroporto.finestra.add(immagine);
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
-        immagine.setLocation(0,(int)(Math.random()*800));
+        immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public String generaCodice() {
@@ -109,7 +109,6 @@ public class Aereo extends Thread
                     parcheggio = aeroporto.parcheggioLibero();
                     if(parcheggio >= 0){
                         System.out.println(codice + " " + modello + " ha prenotato il parcheggio " + parcheggio);
-                        aeroporto.parcheggiLiberi[parcheggio] = false;
                         stato = Stato.parcheggioPrenotato;
                     }
                     break;
@@ -120,7 +119,7 @@ public class Aereo extends Thread
                     }
                     try
                     {
-                        Thread.sleep((long)((1d/immagine.getSize().height)*100));
+                        Thread.sleep((long)((1d/immagine.getSize().height)*500));
                     }
                     catch (InterruptedException ie)
                     {
@@ -176,9 +175,9 @@ public class Aereo extends Thread
                     break;
                 case atterrandoS:
                     //centro-altezza/2
-                    immagine.setLocation(immagine.location().x - 1, 60 - immagine.getSize().height/2);
+                    immagine.setLocation(immagine.location().x - 1, 300 - immagine.getSize().height/2);
                     if(immagine.getLocation().x < 70){
-                        aeroporto.destra.liberaPista();
+                        aeroporto.sinistra.liberaPista();
                         System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
                         stato = Stato.rullaggioAParcheggio;
                         ImageIcon icona = (ImageIcon) immagine.getIcon();
@@ -188,12 +187,15 @@ public class Aereo extends Thread
                         g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
                         g2.drawImage(img, 0, 0, null);
                         g2.dispose();
+                        int ampiezza = immagine.getSize().width;
+                        int altezza = immagine.getSize().height;
+                        immagine.setSize(altezza, ampiezza);
                         ImageIcon newIcon = new ImageIcon(bufImg);
                         immagine.setIcon(newIcon);
                     }else{
                         try
                         {
-                            Thread.sleep((long)((1d/immagine.getSize().height)*1000));
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500));
                         }
                         catch (InterruptedException ie)
                         {
@@ -203,7 +205,7 @@ public class Aereo extends Thread
                     }
                     break;
                 case atterrandoD:
-                    immagine.setLocation(immagine.location().x - 1, 300 - immagine.getSize().height/2);
+                    immagine.setLocation(immagine.location().x - 1, 60 - immagine.getSize().height/2);
                     if(immagine.getLocation().x < 70){
                         aeroporto.destra.liberaPista();
                         System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
@@ -223,7 +225,7 @@ public class Aereo extends Thread
                     }else{
                         try
                         {
-                            Thread.sleep((long)((1d/immagine.getSize().height)*1000));
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500));
                         }
                         catch (InterruptedException ie)
                         {
