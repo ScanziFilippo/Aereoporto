@@ -13,4 +13,6 @@ public enum Stato {
     rullaggioAPistaD,
     decollato,
     parcheggiato,
+    raggiungendoLaPistaS,
+    raggiungendoLaPistaD
 }

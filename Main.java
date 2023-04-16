@@ -12,5 +12,6 @@ public class Main
         aeroporto = new Aeroporto();
         aeroporto.torreDiControllo.generaAerei();
         aeroporto.finestra.concludi();
+        aeroporto.torreDiControllo.start();
     }
 }

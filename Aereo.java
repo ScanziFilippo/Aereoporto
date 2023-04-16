@@ -31,7 +31,7 @@ public class Aereo extends Thread
         immagine = new JLabel(icona);
         aeroporto.finestra.add(immagine);
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
-        immagine.setLocation(0,(int)(Math.random()*800));
+        immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public Aereo(Stato stato, Aeroporto aeroporto)
@@ -44,7 +44,7 @@ public class Aereo extends Thread
         immagine = new JLabel(icona);
         aeroporto.finestra.add(immagine);
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
-        immagine.setLocation(0,(int)(Math.random()*800));
+        immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public Aereo(String modello, Stato stato, Aeroporto aeroporto)
@@ -57,7 +57,7 @@ public class Aereo extends Thread
         immagine = new JLabel(icona);
         aeroporto.finestra.add(immagine);
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
-        immagine.setLocation(0,(int)(Math.random()*800));
+        immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
     }
     public String generaCodice() {
@@ -109,7 +109,6 @@ public class Aereo extends Thread
                     parcheggio = aeroporto.parcheggioLibero();
                     if(parcheggio >= 0){
                         System.out.println(codice + " " + modello + " ha prenotato il parcheggio " + parcheggio);
-                        aeroporto.parcheggiLiberi[parcheggio] = false;
                         stato = Stato.parcheggioPrenotato;
                     }
                     break;
@@ -120,65 +119,18 @@ public class Aereo extends Thread
                     }
                     try
                     {
-                        Thread.sleep((long)((1d/immagine.getSize().height)*100));
+                        Thread.sleep((long)((1d/immagine.getSize().height)*500));
                     }
                     catch (InterruptedException ie)
                     {
                         ie.printStackTrace();
                     }
-                    if(aeroporto.destra.richiediPista()){
-                        System.out.println(codice + " " + modello + " sta atterrando sulla pista di destra");
-                        stato = Stato.atterrandoD;
-                        while(immagine.getLocation().x < 1920){
-                            immagine.setLocation(immagine.location().x + 1, immagine.location().y);
-                            try
-                            {
-                                Thread.sleep((long)((1d/immagine.getSize().height)*500));
-                            }
-                            catch (InterruptedException ie)
-                            {
-                                ie.printStackTrace();
-                            }
-                        }
-                        ImageIcon icona = (ImageIcon) immagine.getIcon();
-                        Image img = icona.getImage();
-                        BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-                        Graphics2D g2 = bufImg.createGraphics();
-                        g2.rotate(Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
-                        g2.drawImage(img, 0, 0, null);
-                        g2.dispose();
-                        ImageIcon newIcon = new ImageIcon(bufImg);
-                        immagine.setIcon(newIcon);
-                    }else if(aeroporto.sinistra.richiediPista()){
-                        System.out.println(codice + " " + modello + " sta atterrando sulla pista di sinistra");
-                        stato = Stato.atterrandoS;
-                        while(immagine.getLocation().x < 1920){
-                            immagine.setLocation(immagine.location().x + 1, immagine.location().y);
-                            try
-                            {
-                                Thread.sleep((long)((1d/immagine.getSize().height)*500));
-                            }
-                            catch (InterruptedException ie)
-                            {
-                                ie.printStackTrace();
-                            }
-                        }
-                        ImageIcon icona = (ImageIcon) immagine.getIcon();
-                        Image img = icona.getImage();
-                        BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
-                        Graphics2D g2 = bufImg.createGraphics();
-                        g2.rotate(Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
-                        g2.drawImage(img, 0, 0, null);
-                        g2.dispose();
-                        ImageIcon newIcon = new ImageIcon(bufImg);
-                        immagine.setIcon(newIcon);
-                    }
+                    
                     break;
                 case atterrandoS:
-                    //centro-altezza/2
-                    immagine.setLocation(immagine.location().x - 1, 60 - immagine.getSize().height/2);
+                    immagine.setLocation(immagine.location().x - 1, 300 - immagine.getSize().height/2);
                     if(immagine.getLocation().x < 70){
-                        aeroporto.destra.liberaPista();
+                        aeroporto.sinistra.liberaPista();
                         System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
                         stato = Stato.rullaggioAParcheggio;
                         ImageIcon icona = (ImageIcon) immagine.getIcon();
@@ -188,12 +140,15 @@ public class Aereo extends Thread
                         g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
                         g2.drawImage(img, 0, 0, null);
                         g2.dispose();
+                        int ampiezza = immagine.getSize().width;
+                        int altezza = immagine.getSize().height;
+                        immagine.setSize(altezza, ampiezza);
                         ImageIcon newIcon = new ImageIcon(bufImg);
                         immagine.setIcon(newIcon);
                     }else{
                         try
                         {
-                            Thread.sleep((long)((1d/immagine.getSize().height)*1000));
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500));
                         }
                         catch (InterruptedException ie)
                         {
@@ -203,7 +158,7 @@ public class Aereo extends Thread
                     }
                     break;
                 case atterrandoD:
-                    immagine.setLocation(immagine.location().x - 1, 300 - immagine.getSize().height/2);
+                    immagine.setLocation(immagine.location().x - 1, 60 - immagine.getSize().height/2);
                     if(immagine.getLocation().x < 70){
                         aeroporto.destra.liberaPista();
                         System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
@@ -223,7 +178,7 @@ public class Aereo extends Thread
                     }else{
                         try
                         {
-                            Thread.sleep((long)((1d/immagine.getSize().height)*1000));
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500));
                         }
                         catch (InterruptedException ie)
                         {
@@ -269,6 +224,52 @@ public class Aereo extends Thread
                     System.out.println(codice + " " + modello + " sta dirigendosi alla pista di decollo destra tramite il rullaggio");
                     break;
                 case parcheggiato:
+                    break;
+                case raggiungendoLaPistaS:
+                    while(immagine.getLocation().x < 1920){
+                        immagine.setLocation(immagine.location().x + 1, immagine.location().y);
+                        try
+                        {
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500));
+                        }
+                        catch (InterruptedException ie)
+                        {
+                            ie.printStackTrace();
+                        }
+                    }
+                    ImageIcon icona = (ImageIcon) immagine.getIcon();
+                    Image img = icona.getImage();
+                    BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D g2 = bufImg.createGraphics();
+                    g2.rotate(Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                    g2.drawImage(img, 0, 0, null);
+                    g2.dispose();
+                    ImageIcon newIcon = new ImageIcon(bufImg);
+                    immagine.setIcon(newIcon);
+                    stato = Stato.atterrandoS;
+                    break;
+                case raggiungendoLaPistaD:
+                    while(immagine.getLocation().x < 1920){
+                        immagine.setLocation(immagine.location().x + 1, immagine.location().y);
+                        try
+                        {
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500));
+                        }
+                        catch (InterruptedException ie)
+                        {
+                            ie.printStackTrace();
+                        }
+                    }
+                    ImageIcon icona2 = (ImageIcon) immagine.getIcon();
+                    Image img2 = icona2.getImage();
+                    BufferedImage bufImg2 = new BufferedImage(img2.getWidth(null), img2.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                    Graphics2D g3 = bufImg2.createGraphics();
+                    g3.rotate(Math.PI, bufImg2.getWidth() / 2, bufImg2.getHeight() / 2);
+                    g3.drawImage(img2, 0, 0, null);
+                    g3.dispose();
+                    ImageIcon newIcon2 = new ImageIcon(bufImg2);
+                    immagine.setIcon(newIcon2);
+                    stato = Stato.atterrandoD;
                     break;
                 default:
                     System.out.println("Tipo di volo non riconosciuto");

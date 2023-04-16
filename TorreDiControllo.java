@@ -1,5 +1,9 @@
 import java.util.Iterator;
 import java.util.HashMap;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+
 
 public class TorreDiControllo extends Thread
 {
@@ -21,6 +25,17 @@ public class TorreDiControllo extends Thread
     }
     public void run(){
         while(true){
+            for(Aereo aereo:aerei.values()){
+                if(aereo.stato == Stato.parcheggioPrenotato){
+                    if(aeroporto.destra.richiediPista()){
+                        aereo.stato = Stato.raggiungendoLaPistaD;
+                        System.out.println(aereo.codice + " " + aereo.modello + " sta atterrando sulla pista di destra");
+                    }else if(aeroporto.sinistra.richiediPista()){
+                        aereo.stato = Stato.raggiungendoLaPistaS;
+                        System.out.println(aereo.codice + " " + aereo.modello + " sta atterrando sulla pista di sinistra");
+                    }
+                }
+            }
         }
     }
 }

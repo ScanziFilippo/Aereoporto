@@ -16,6 +16,7 @@ public class Aeroporto
     int parcheggioLibero(){
         for(int i = 0; i < 6; i++){
             if(parcheggiLiberi[i]){
+                parcheggiLiberi[i] = false;
                 return i;
             }
         }
