@@ -10,8 +10,11 @@ public class TorreDiControllo extends Thread
         this.aeroporto = aeroporto;
     }
     public void generaAerei(){
-        for(int i = 0;i < 10; i++){
-            Aereo aereo = new Aereo(aeroporto);
+        Aereo sette47 = new Aereo("Boeing 747", Stato.inAria, aeroporto);
+        aerei.put(sette47.codice, sette47);
+        sette47.start();
+        for(int i = 0;i < 5; i++){
+            Aereo aereo = new Aereo(Stato.inAria, aeroporto);
             aerei.put(aereo.codice, aereo);
             aereo.start();
         }
@@ -19,8 +22,5 @@ public class TorreDiControllo extends Thread
     public void run(){
         while(true){
         }
-    }
-    public Pista richiediPista(){
-        return null;
     }
 }

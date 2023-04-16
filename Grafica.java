@@ -18,7 +18,7 @@ public class Grafica extends JFrame
         pannelloSfondo.setDoubleBuffered(true);*/
     }
     void concludi(){
-        sfondo = new JLabel(new ImageIcon("immagini/sfondo.png"));
+        sfondo = new JLabel(new ImageIcon("immagini/sfondi/sfondo.png"));
         //sfondo.setSize(100,100);
         //pannelloSfondo.add(sfondo);
         add(sfondo);

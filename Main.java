@@ -6,7 +6,7 @@ public class Main
         main(new String[1]);
     }
     public void prova(){
-        aeroporto.torreDiControllo.aerei.put("ABCDE",new Aereo("Boeing 747", "inAria", aeroporto));
+        aeroporto.torreDiControllo.aerei.put("ABCDE",new Aereo("Boeing 747", Stato.inAria, aeroporto));
     }
     public static void main(String args[]){
         aeroporto = new Aeroporto();
