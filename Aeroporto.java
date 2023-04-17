@@ -5,9 +5,10 @@ public class Aeroporto
     Pista destra;
     TorreDiControllo torreDiControllo;
     boolean[] parcheggiLiberi = {true, true, true, true, true, true};
+    Aereo[] parcheggi = {null, null, null, null, null, null};
     public Aeroporto()
     {
-        finestra = new Grafica();
+        finestra = new Grafica(this);
         sinistra = new Pista("L");
         destra = new Pista("R");
         torreDiControllo = new TorreDiControllo(this);

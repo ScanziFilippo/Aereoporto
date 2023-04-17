@@ -13,4 +13,5 @@ public enum Stato {
     rullaggioAPistaD,
     decollato,
     parcheggiato,
+    inCoda,
 }

@@ -15,6 +15,7 @@ public class Aereo extends Thread
     Aeroporto aeroporto;
     JLabel immagine;
     int parcheggio;
+    int variazioneVelocita = (int)(Math.random()*10);
     //aTerra, inAria, atterrando, decollando, inCoda
     Stato stato;
     public Aereo(Aeroporto aeroporto)
@@ -33,6 +34,23 @@ public class Aereo extends Thread
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
         immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
+        if(stato == Stato.aTerra){
+            parcheggio = aeroporto.parcheggioLibero();
+            aeroporto.parcheggi[parcheggio] = this;
+            immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
+            icona = (ImageIcon) immagine.getIcon();
+            Image img = icona.getImage();
+            BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = bufImg.createGraphics();
+            g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+            g2.drawImage(img, 0, 0, null);
+            g2.dispose();
+            int ampiezza = immagine.getSize().width;
+            int altezza = immagine.getSize().height;
+            immagine.setSize(altezza, ampiezza);
+            ImageIcon newIcon = new ImageIcon(bufImg);
+            immagine.setIcon(newIcon);
+        }
     }
     public Aereo(Stato stato, Aeroporto aeroporto)
     {
@@ -46,6 +64,23 @@ public class Aereo extends Thread
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
         immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
+        if(stato == Stato.aTerra){
+            parcheggio = aeroporto.parcheggioLibero();
+            aeroporto.parcheggi[parcheggio] = this;
+            immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
+            icona = (ImageIcon) immagine.getIcon();
+            Image img = icona.getImage();
+            BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = bufImg.createGraphics();
+            g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+            g2.drawImage(img, 0, 0, null);
+            g2.dispose();
+            int ampiezza = immagine.getSize().width;
+            int altezza = immagine.getSize().height;
+            immagine.setSize(altezza, ampiezza);
+            ImageIcon newIcon = new ImageIcon(bufImg);
+            immagine.setIcon(newIcon);
+        }
     }
     public Aereo(String modello, Stato stato, Aeroporto aeroporto)
     {
@@ -59,6 +94,23 @@ public class Aereo extends Thread
         immagine.setSize(icona.getIconWidth(), icona.getIconHeight());
         immagine.setLocation(0,(int)(360 + Math.random()*560));
         System.out.println("Nuovo aereo " + stato + " creato " + codice + " " + modello);
+        if(stato == Stato.aTerra){
+            parcheggio = aeroporto.parcheggioLibero();
+            aeroporto.parcheggi[parcheggio] = this;
+            immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
+            icona = (ImageIcon) immagine.getIcon();
+            Image img = icona.getImage();
+            BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = bufImg.createGraphics();
+            g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+            g2.drawImage(img, 0, 0, null);
+            g2.dispose();
+            int ampiezza = immagine.getSize().width;
+            int altezza = immagine.getSize().height;
+            immagine.setSize(altezza, ampiezza);
+            ImageIcon newIcon = new ImageIcon(bufImg);
+            immagine.setIcon(newIcon);
+        }
     }
     public String generaCodice() {
         String stringa = "";
@@ -91,6 +143,24 @@ public class Aereo extends Thread
                 case aTerra:
                     //System.out.println(codice + " " + modello + " è a terra");
                     break;
+                case inCoda:
+                    immagine.setLocation(1840 - immagine.getSize().width/2, immagine.location().y - 1);
+                    System.out.println("Si");
+                    if(immagine.getLocation().y < 370){
+                        System.out.println(codice + " " + modello + " ha parcheggiato");
+                        stato = Stato.parcheggiato;
+                        immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
+                    }else{
+                        try
+                        {
+                            Thread.sleep((long)((1d/immagine.getSize().height)*1000 + variazioneVelocita));
+                        }
+                        catch (InterruptedException ie)
+                        {
+                            ie.printStackTrace();
+                        }
+                        //System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
+                    }
                 case inAria:
                     //System.out.println(codice + " " + modello + " è in volo");
                     immagine.setLocation(immagine.location().x + 1, immagine.location().y);
@@ -100,7 +170,7 @@ public class Aereo extends Thread
                     
                     try
                     {
-                        Thread.sleep((long)((1d/immagine.getSize().height)*500));
+                        Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
                     }
                     catch (InterruptedException ie)
                     {
@@ -119,7 +189,7 @@ public class Aereo extends Thread
                     }
                     try
                     {
-                        Thread.sleep((long)((1d/immagine.getSize().height)*500));
+                        Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
                     }
                     catch (InterruptedException ie)
                     {
@@ -132,7 +202,7 @@ public class Aereo extends Thread
                             immagine.setLocation(immagine.location().x + 1, immagine.location().y);
                             try
                             {
-                                Thread.sleep((long)((1d/immagine.getSize().height)*500));
+                                Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
                             }
                             catch (InterruptedException ie)
                             {
@@ -155,7 +225,7 @@ public class Aereo extends Thread
                             immagine.setLocation(immagine.location().x + 1, immagine.location().y);
                             try
                             {
-                                Thread.sleep((long)((1d/immagine.getSize().height)*500));
+                                Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
                             }
                             catch (InterruptedException ie)
                             {
@@ -195,7 +265,7 @@ public class Aereo extends Thread
                     }else{
                         try
                         {
-                            Thread.sleep((long)((1d/immagine.getSize().height)*500));
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
                         }
                         catch (InterruptedException ie)
                         {
@@ -225,7 +295,7 @@ public class Aereo extends Thread
                     }else{
                         try
                         {
-                            Thread.sleep((long)((1d/immagine.getSize().height)*500));
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
                         }
                         catch (InterruptedException ie)
                         {
@@ -243,7 +313,7 @@ public class Aereo extends Thread
                     }else{
                         try
                         {
-                            Thread.sleep((long)((1d/immagine.getSize().height)*1000));
+                            Thread.sleep((long)((1d/immagine.getSize().height)*1000 + variazioneVelocita));
                         }
                         catch (InterruptedException ie)
                         {
