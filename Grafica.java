@@ -29,7 +29,7 @@ public class Grafica extends JFrame implements MouseListener
         show();
     }
     public void mousePressed(MouseEvent e) {
-        System.out.println(e.getX() + " " +e.getY());
+        //System.out.println(e.getX() + " " +e.getY());
         if(e.getY() > 540 || e.getY() < 810){
             if(e.getX() < 322){
                aeroporto.parcheggi[0].stato = Stato.inCoda;

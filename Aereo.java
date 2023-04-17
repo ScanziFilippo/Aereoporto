@@ -140,16 +140,12 @@ public class Aereo extends Thread
     public void run(){
         while(true){
             switch(stato) {
-                case aTerra:
-                    //System.out.println(codice + " " + modello + " è a terra");
-                    break;
                 case inCoda:
                     immagine.setLocation(1840 - immagine.getSize().width/2, immagine.location().y - 1);
-                    System.out.println("Si");
                     if(immagine.getLocation().y < 370){
                         System.out.println(codice + " " + modello + " ha parcheggiato");
-                        stato = Stato.parcheggiato;
-                        immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
+                        stato = Stato.inAttesa;
+                        //immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
                     }else{
                         try
                         {
@@ -161,6 +157,96 @@ public class Aereo extends Thread
                         }
                         //System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
                     }
+                    break;
+                case inAttesa:
+                    if(aeroporto.destra.richiediPista()){
+                        System.out.println(codice + " " + modello + " sta decollando sulla pista di destra");
+                        stato = Stato.decollandoD;
+                        while(immagine.getLocation().y > 5){
+                            immagine.setLocation(immagine.location().x, immagine.location().y - 1);
+                            try
+                            {
+                                Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
+                            }
+                            catch (InterruptedException ie)
+                            {
+                                ie.printStackTrace();
+                            }
+                        }
+                        ImageIcon icona = (ImageIcon) immagine.getIcon();
+                        Image img = icona.getImage();
+                        BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g2 = bufImg.createGraphics();
+                        g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                        g2.drawImage(img, 0, 0, null);
+                        g2.dispose();
+                        int ampiezza = immagine.getSize().width;
+                        int altezza = immagine.getSize().height;
+                        immagine.setSize(altezza, ampiezza);
+                        ImageIcon newIcon = new ImageIcon(bufImg);
+                        immagine.setIcon(newIcon);
+                    }else if(aeroporto.sinistra.richiediPista()){
+                        System.out.println(codice + " " + modello + " sta decollando sulla pista di sinistra");
+                        stato = Stato.decollandoS;
+                        while(immagine.getLocation().y > 250){
+                            immagine.setLocation(immagine.location().x, immagine.location().y - 1);
+                            try
+                            {
+                                Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
+                            }
+                            catch (InterruptedException ie)
+                            {
+                                ie.printStackTrace();
+                            }
+                        }
+                        ImageIcon icona = (ImageIcon) immagine.getIcon();
+                        Image img = icona.getImage();
+                        BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                        Graphics2D g2 = bufImg.createGraphics();
+                        g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                        g2.drawImage(img, 0, 0, null);
+                        g2.dispose();
+                        int ampiezza = immagine.getSize().width;
+                        int altezza = immagine.getSize().height;
+                        immagine.setSize(altezza, ampiezza);
+                        ImageIcon newIcon = new ImageIcon(bufImg);
+                        immagine.setIcon(newIcon);
+                    }
+                    break;
+                case decollandoS:
+                    immagine.setLocation(immagine.location().x - 1, immagine.location().y);
+                    if(immagine.getLocation().x < -160){
+                        System.out.println(codice + " " + modello + " è decollato");
+                        stato = Stato.decollato;
+                        aeroporto.sinistra.liberaPista();
+                    }else{
+                        try
+                        {
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
+                        }
+                        catch (InterruptedException ie)
+                        {
+                            ie.printStackTrace();
+                        }
+                    }
+                    break;
+                case decollandoD:
+                    immagine.setLocation(immagine.location().x - 1, immagine.location().y);
+                    if(immagine.getLocation().x < -160){
+                        System.out.println(codice + " " + modello + " è decollato");
+                        stato = Stato.decollato;
+                        aeroporto.destra.liberaPista();
+                    }else{
+                        try
+                        {
+                            Thread.sleep((long)((1d/immagine.getSize().height)*500 + variazioneVelocita));
+                        }
+                        catch (InterruptedException ie)
+                        {
+                            ie.printStackTrace();
+                        }
+                    }
+                    break;
                 case inAria:
                     //System.out.println(codice + " " + modello + " è in volo");
                     immagine.setLocation(immagine.location().x + 1, immagine.location().y);
@@ -322,12 +408,7 @@ public class Aereo extends Thread
                         //System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
                     }
                     break;
-                case decollandoS:
-                    System.out.println(codice + " " + modello + " sta decollando dalla pista di sinistra");
-                    break;
-                case decollandoD:
-                    System.out.println(codice + " " + modello + " sta decollando dalla pista di destra");
-                    break;
+
                 case pistaPrenotataS:
                     System.out.println(codice + " " + modello + " si sta dirigendo verso la pista di sinistra prenotata");
                     break;
@@ -342,9 +423,9 @@ public class Aereo extends Thread
                     break;
                 case parcheggiato:
                     break;
-                default:
+                /*default:
                     System.out.println("Tipo di volo non riconosciuto");
-                    break;
+                    break;*/
             }
         }
     }

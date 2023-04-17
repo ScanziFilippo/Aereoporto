@@ -14,4 +14,5 @@ public enum Stato {
     decollato,
     parcheggiato,
     inCoda,
+    inAttesa
 }
