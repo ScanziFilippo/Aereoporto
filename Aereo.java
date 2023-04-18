@@ -15,7 +15,7 @@ public class Aereo extends Thread
     Aeroporto aeroporto;
     JLabel immagine;
     int parcheggio;
-    int variazioneVelocita = (int)(Math.random()*10);
+    int variazioneVelocita = (int)(Math.random()*3);
     //aTerra, inAria, atterrando, decollando, inCoda
     Stato stato;
     public Aereo(Aeroporto aeroporto)
@@ -141,6 +141,8 @@ public class Aereo extends Thread
         while(true){
             switch(stato) {
                 case inCoda:
+                    aeroporto.parcheggiLiberi[parcheggio] = true;
+                    aeroporto.parcheggi[parcheggio] = null;
                     immagine.setLocation(1840 - immagine.getSize().width/2, immagine.location().y - 1);
                     if(immagine.getLocation().y < 370){
                         System.out.println(codice + " " + modello + " ha parcheggiato");
@@ -173,6 +175,7 @@ public class Aereo extends Thread
                                 ie.printStackTrace();
                             }
                         }
+                        immagine.setLocation(immagine.location().x, 60 - immagine.getHeight()/2);
                         ImageIcon icona = (ImageIcon) immagine.getIcon();
                         Image img = icona.getImage();
                         BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -180,9 +183,9 @@ public class Aereo extends Thread
                         g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
                         g2.drawImage(img, 0, 0, null);
                         g2.dispose();
-                        int ampiezza = immagine.getSize().width;
+                        /*int ampiezza = immagine.getSize().width;
                         int altezza = immagine.getSize().height;
-                        immagine.setSize(altezza, ampiezza);
+                        immagine.setSize(altezza, ampiezza);*/
                         ImageIcon newIcon = new ImageIcon(bufImg);
                         immagine.setIcon(newIcon);
                     }else if(aeroporto.sinistra.richiediPista()){
@@ -199,6 +202,7 @@ public class Aereo extends Thread
                                 ie.printStackTrace();
                             }
                         }
+                        immagine.setLocation(immagine.location().x, 300 - immagine.getHeight()/2);
                         ImageIcon icona = (ImageIcon) immagine.getIcon();
                         Image img = icona.getImage();
                         BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -206,9 +210,9 @@ public class Aereo extends Thread
                         g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
                         g2.drawImage(img, 0, 0, null);
                         g2.dispose();
-                        int ampiezza = immagine.getSize().width;
+                        /*int ampiezza = immagine.getSize().width;
                         int altezza = immagine.getSize().height;
-                        immagine.setSize(altezza, ampiezza);
+                        immagine.setSize(altezza, ampiezza);*/
                         ImageIcon newIcon = new ImageIcon(bufImg);
                         immagine.setIcon(newIcon);
                     }
@@ -396,6 +400,8 @@ public class Aereo extends Thread
                         System.out.println(codice + " " + modello + " ha parcheggiato");
                         stato = Stato.parcheggiato;
                         immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
+                        aeroporto.parcheggiLiberi[parcheggio] = false;
+                        aeroporto.parcheggi[parcheggio] = this;
                     }else{
                         try
                         {
@@ -422,6 +428,7 @@ public class Aereo extends Thread
                     System.out.println(codice + " " + modello + " sta dirigendosi alla pista di decollo destra tramite il rullaggio");
                     break;
                 case parcheggiato:
+                    this.stop();
                     break;
                 /*default:
                     System.out.println("Tipo di volo non riconosciuto");
