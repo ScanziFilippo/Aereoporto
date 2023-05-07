@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.event.*;
+import java.awt.*;
+import java.awt.image.*;
 
 public class Grafica extends JFrame implements MouseListener
 {
@@ -32,16 +34,80 @@ public class Grafica extends JFrame implements MouseListener
         //System.out.println(e.getX() + " " +e.getY());
         if(e.getY() > 540 || e.getY() < 810){
             if(e.getX() < 322){
-               aeroporto.parcheggi[0].stato = Stato.inCoda;
-               System.out.println("metto in coda " + aeroporto.parcheggi[0].modello);
+                ImageIcon icona = (ImageIcon) aeroporto.parcheggi[0].immagine.getIcon();
+                Image img = icona.getImage();
+                BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = bufImg.createGraphics();
+                g2.rotate(-Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                g2.drawImage(img, 0, 0, null);
+                g2.dispose();
+                int ampiezza = aeroporto.parcheggi[0].immagine.getSize().width;
+                int altezza = aeroporto.parcheggi[0].immagine.getSize().height;
+                aeroporto.parcheggi[0].immagine.setSize(altezza, ampiezza);
+                ImageIcon newIcon = new ImageIcon(bufImg);
+                aeroporto.parcheggi[0].immagine.setIcon(newIcon);
+                aeroporto.parcheggi[0].stato = Stato.inCoda;
+                System.out.println("metto in coda " + aeroporto.parcheggi[0].modello);
             }else if(e.getX() < 644){
-               aeroporto.parcheggi[1].stato = Stato.inCoda;
+                ImageIcon icona = (ImageIcon) aeroporto.parcheggi[1].immagine.getIcon();
+                Image img = icona.getImage();
+                BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = bufImg.createGraphics();
+                g2.rotate(-Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                g2.drawImage(img, 0, 0, null);
+                g2.dispose();
+                int ampiezza = aeroporto.parcheggi[1].immagine.getSize().width;
+                int altezza = aeroporto.parcheggi[1].immagine.getSize().height;
+                aeroporto.parcheggi[1].immagine.setSize(altezza, ampiezza);
+                ImageIcon newIcon = new ImageIcon(bufImg);
+                aeroporto.parcheggi[1].immagine.setIcon(newIcon);
+                aeroporto.parcheggi[1].stato = Stato.inCoda;
+                System.out.println("metto in coda " + aeroporto.parcheggi[1].modello);
             }else if(e.getX() < 966){
-               aeroporto.parcheggi[2].stato = Stato.inCoda;
+                ImageIcon icona = (ImageIcon) aeroporto.parcheggi[2].immagine.getIcon();
+                Image img = icona.getImage();
+                BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = bufImg.createGraphics();
+                g2.rotate(-Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                g2.drawImage(img, 0, 0, null);
+                g2.dispose();
+                int ampiezza = aeroporto.parcheggi[2].immagine.getSize().width;
+                int altezza = aeroporto.parcheggi[2].immagine.getSize().height;
+                aeroporto.parcheggi[2].immagine.setSize(altezza, ampiezza);
+                ImageIcon newIcon = new ImageIcon(bufImg);
+                aeroporto.parcheggi[2].immagine.setIcon(newIcon);
+                aeroporto.parcheggi[2].stato = Stato.inCoda;
+                System.out.println("metto in coda " + aeroporto.parcheggi[2].modello);
             }else if(e.getX() < 1288){
-               aeroporto.parcheggi[3].stato = Stato.inCoda;
+                ImageIcon icona = (ImageIcon) aeroporto.parcheggi[3].immagine.getIcon();
+                Image img = icona.getImage();
+                BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = bufImg.createGraphics();
+                g2.rotate(-Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                g2.drawImage(img, 0, 0, null);
+                g2.dispose();
+                int ampiezza = aeroporto.parcheggi[3].immagine.getSize().width;
+                int altezza = aeroporto.parcheggi[3].immagine.getSize().height;
+                aeroporto.parcheggi[3].immagine.setSize(altezza, ampiezza);
+                ImageIcon newIcon = new ImageIcon(bufImg);
+                aeroporto.parcheggi[3].immagine.setIcon(newIcon);
+                aeroporto.parcheggi[3].stato = Stato.inCoda;
+                System.out.println("metto in coda " + aeroporto.parcheggi[3].modello);
             }else if(e.getX() < 1920){
-               aeroporto.parcheggi[4].stato = Stato.inCoda;
+                ImageIcon icona = (ImageIcon) aeroporto.parcheggi[4].immagine.getIcon();
+                Image img = icona.getImage();
+                BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = bufImg.createGraphics();
+                g2.rotate(-Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                g2.drawImage(img, 0, 0, null);
+                g2.dispose();
+                int ampiezza = aeroporto.parcheggi[4].immagine.getSize().width;
+                int altezza = aeroporto.parcheggi[4].immagine.getSize().height;
+                aeroporto.parcheggi[4].immagine.setSize(altezza, ampiezza);
+                ImageIcon newIcon = new ImageIcon(bufImg);
+                aeroporto.parcheggi[4].immagine.setIcon(newIcon);
+                aeroporto.parcheggi[4].stato = Stato.inCoda;
+                System.out.println("metto in coda " + aeroporto.parcheggi[4].modello);
             }
         }
     }

@@ -42,7 +42,7 @@ public class Aereo extends Thread
             Image img = icona.getImage();
             BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = bufImg.createGraphics();
-            g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+            g2.rotate(Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
             g2.drawImage(img, 0, 0, null);
             g2.dispose();
             int ampiezza = immagine.getSize().width;
@@ -72,7 +72,7 @@ public class Aereo extends Thread
             Image img = icona.getImage();
             BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = bufImg.createGraphics();
-            g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+            g2.rotate(Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
             g2.drawImage(img, 0, 0, null);
             g2.dispose();
             int ampiezza = immagine.getSize().width;
@@ -102,7 +102,7 @@ public class Aereo extends Thread
             Image img = icona.getImage();
             BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = bufImg.createGraphics();
-            g2.rotate(-Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+            g2.rotate(Math.PI/2, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
             g2.drawImage(img, 0, 0, null);
             g2.dispose();
             int ampiezza = immagine.getSize().width;
@@ -428,7 +428,7 @@ public class Aereo extends Thread
                     System.out.println(codice + " " + modello + " sta dirigendosi alla pista di decollo destra tramite il rullaggio");
                     break;
                 case parcheggiato:
-                    this.stop();
+                    stato = Stato.aTerra;
                     break;
                 /*default:
                     System.out.println("Tipo di volo non riconosciuto");
