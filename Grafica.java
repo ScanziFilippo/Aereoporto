@@ -10,7 +10,8 @@ public class Grafica extends JFrame implements MouseListener
     JLabel sfondo;
     JPanel pannelloSfondo = new JPanel();
     Aeroporto aeroporto;
-    JLabel testo;
+    JLabel testo = new JLabel();
+    String[] stringhe = {"","","","","",""};
     /**
      * <p>Crea la finestra e un muose listener</p>
      */
@@ -28,6 +29,12 @@ public class Grafica extends JFrame implements MouseListener
         pannelloSfondo.setSize(1920,1080);
         pannelloSfondo.setLocation(0,-2);
         pannelloSfondo.setDoubleBuffered(true);*/
+        add(testo);
+        testo.setLocation(500,700);
+        testo.setSize(1900,500);
+        testo.setText("");
+        testo.setFont(new Font("Verdana", Font.PLAIN, 32));
+        testo.setForeground(Color.white);
     }
     /**
      * <p>Aggiunge l'immagine di sfondo</p>
@@ -40,7 +47,13 @@ public class Grafica extends JFrame implements MouseListener
         show();
     }
     void aggiornaTesto(String stringa){
-        
+        stringhe[5] = stringhe[4];
+        stringhe[4] = stringhe[3];
+        stringhe[3] = stringhe[2];
+        stringhe[2] = stringhe[1];
+        stringhe[1] = stringhe[0];
+        stringhe[0] = stringa;
+        testo.setText("<html><body style='background-color:black';>"+stringhe[5]+"<br>"+stringhe[4]+"<br>"+stringhe[3]+"<br>"+stringhe[2]+"<br>"+stringhe[1]+"<br> > "+stringhe[0]+"</body></html>");
     }
     /**
      * <p>Eventi Muose listener per impartire agli aerei premuti di partire</p>

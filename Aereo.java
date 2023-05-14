@@ -167,7 +167,7 @@ public class Aereo extends Thread
                     aeroporto.parcheggi[parcheggio] = null;
                     immagine.setLocation(1840 - immagine.getSize().width/2, immagine.location().y - 1);
                     if(immagine.getLocation().y < 370){
-                        System.out.println(codice + " " + modello + " sta rullando alla pista");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta rullando alla pista");
                         stato = Stato.inAttesa;
                         //immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
                     }else{
@@ -211,7 +211,7 @@ public class Aereo extends Thread
                         ImageIcon newIcon = new ImageIcon(bufImg);
                         immagine.setIcon(newIcon);
                     }else if(aeroporto.sinistra.richiediPista()){
-                        System.out.println(codice + " " + modello + " sta decollando sulla pista di sinistra");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta decollando sulla pista di sinistra");
                         stato = Stato.decollandoS;
                         while(immagine.getLocation().y > 250){
                             immagine.setLocation(immagine.location().x, immagine.location().y - 1);
@@ -242,7 +242,7 @@ public class Aereo extends Thread
                 case decollandoS:
                     immagine.setLocation(immagine.location().x - 1, immagine.location().y);
                     if(immagine.getLocation().x < -160){
-                        System.out.println(codice + " " + modello + " è decollato");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " è decollato");
                         stato = Stato.decollato;
                         aeroporto.sinistra.liberaPista();
                     }else{
@@ -259,7 +259,7 @@ public class Aereo extends Thread
                 case decollandoD:
                     immagine.setLocation(immagine.location().x - 1, immagine.location().y);
                     if(immagine.getLocation().x < -160){
-                        System.out.println(codice + " " + modello + " è decollato");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " è decollato");
                         stato = Stato.decollato;
                         aeroporto.destra.liberaPista();
                     }else{
@@ -290,7 +290,7 @@ public class Aereo extends Thread
                     }
                     parcheggio = aeroporto.parcheggioLibero();
                     if(parcheggio >= 0){
-                        System.out.println(codice + " " + modello + " ha prenotato il parcheggio " + parcheggio);
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " ha prenotato il parcheggio " + parcheggio);
                         stato = Stato.parcheggioPrenotato;
                     }
                     break;
@@ -308,7 +308,7 @@ public class Aereo extends Thread
                         ie.printStackTrace();
                     }
                     if(aeroporto.destra.richiediPista()){
-                        System.out.println(codice + " " + modello + " sta atterrando sulla pista di destra");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta atterrando sulla pista di destra");
                         stato = Stato.atterrandoD;
                         while(immagine.getLocation().x < 1920){
                             immagine.setLocation(immagine.location().x + 1, immagine.location().y);
@@ -331,7 +331,7 @@ public class Aereo extends Thread
                         ImageIcon newIcon = new ImageIcon(bufImg);
                         immagine.setIcon(newIcon);
                     }else if(aeroporto.sinistra.richiediPista()){
-                        System.out.println(codice + " " + modello + " sta atterrando sulla pista di sinistra");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta atterrando sulla pista di sinistra");
                         stato = Stato.atterrandoS;
                         while(immagine.getLocation().x < 1920){
                             immagine.setLocation(immagine.location().x + 1, immagine.location().y);
@@ -360,7 +360,7 @@ public class Aereo extends Thread
                     immagine.setLocation(immagine.location().x - 1, 300 - immagine.getSize().height/2);
                     if(immagine.getLocation().x < 70){
                         aeroporto.sinistra.liberaPista();
-                        System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta procedendo verso il parcheggio");
                         stato = Stato.rullaggioAParcheggio;
                         ImageIcon icona = (ImageIcon) immagine.getIcon();
                         Image img = icona.getImage();
@@ -390,7 +390,7 @@ public class Aereo extends Thread
                     immagine.setLocation(immagine.location().x - 1, 60 - immagine.getSize().height/2);
                     if(immagine.getLocation().x < 70){
                         aeroporto.destra.liberaPista();
-                        System.out.println(codice + " " + modello + " sta procedendo verso il parcheggio");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta procedendo verso il parcheggio");
                         stato = Stato.rullaggioAParcheggio;
                         ImageIcon icona = (ImageIcon) immagine.getIcon();
                         Image img = icona.getImage();
@@ -419,7 +419,7 @@ public class Aereo extends Thread
                 case rullaggioAParcheggio:
                     immagine.setLocation(70 - immagine.getSize().width/2, immagine.location().y + 1);
                     if(immagine.getLocation().y > 500){
-                        System.out.println(codice + " " + modello + " ha parcheggiato");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " ha parcheggiato");
                         stato = Stato.parcheggiato;
                         immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
                         aeroporto.parcheggiLiberi[parcheggio] = false;
@@ -438,16 +438,16 @@ public class Aereo extends Thread
                     break;
 
                 case pistaPrenotataS:
-                    System.out.println(codice + " " + modello + " si sta dirigendo verso la pista di sinistra prenotata");
+                    aeroporto.finestra.aggiornaTesto(codice + " " + modello + " si sta dirigendo verso la pista di sinistra prenotata");
                     break;
                 case pistaPrenotataD:
-                    System.out.println(codice + " " + modello + " si sta dirigendo verso la pista di destra prenotata");
+                    aeroporto.finestra.aggiornaTesto(codice + " " + modello + " si sta dirigendo verso la pista di destra prenotata");
                     break;
                 case rullaggioAPistaS:
-                    System.out.println(codice + " " + modello + " sta dirigendosi alla pista di decollo sinistra tramite il rullaggio");
+                    aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta dirigendosi alla pista di decollo sinistra tramite il rullaggio");
                     break;
                 case rullaggioAPistaD:
-                    System.out.println(codice + " " + modello + " sta dirigendosi alla pista di decollo destra tramite il rullaggio");
+                    aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta dirigendosi alla pista di decollo destra tramite il rullaggio");
                     break;
                 case parcheggiato:
                     stato = Stato.aTerra;
