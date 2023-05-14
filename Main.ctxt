@@ -1,9 +1,11 @@
 #BlueJ class context
 comment0.target=Main
+comment0.text=\r\n\ <p>Classe\ Main\ dove\ viene\ inizializzato\ tutto</p>\r\n
 comment1.params=
 comment1.target=Main()
 comment2.params=
 comment2.target=void\ prova()
 comment3.params=args
 comment3.target=void\ main(java.lang.String[])
+comment3.text=\r\n\ <p>Metodo\ main\ che\ crea\ l'istanza\ dell'aeroporto,\ generando\ gli\ aerei\ e\ aggiungendo\ lo\ sfondo\ alla\ finestra\ grafica</p>\r\n
 numComments=4

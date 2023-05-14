@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=TorreDiControllo
+comment0.text=\r\n\ <p>Classe\ della\ torre\ di\ controllo</p>\r\n
 comment1.params=aeroporto
 comment1.target=TorreDiControllo(Aeroporto)
 comment2.params=
 comment2.target=void\ generaAerei()
-comment3.params=
-comment3.target=void\ run()
-numComments=4
+comment2.text=\r\n\ <p>Genera\ 6\ aerei\ in\ aria\ e\ 1\ a\ terra</p>\r\n
+numComments=3

@@ -1,9 +1,13 @@
 #BlueJ class context
 comment0.target=Pista
+comment0.text=\r\n\ <p>Classe\ per\ le\ piste</p>\r\n
 comment1.params=nome
 comment1.target=Pista(java.lang.String)
+comment1.text=\r\n\ <p>Rende\ disponbile\ il\ semaforo\ binario\ della\ pista</p>\r\n
 comment2.params=
 comment2.target=boolean\ richiediPista()
+comment2.text=\r\n\ <p>Risponde\ alla\ richiesta\ di\ un\ aereo\ per\ la\ pista\ in\ modo\ affermativo\ o\ negativo,\ ed\ eventualmente\ occupando\ il\ semaforo</p>\r\n
 comment3.params=
 comment3.target=void\ liberaPista()
+comment3.text=\r\n\ <p>Segna\ la\ pista\ liberata\ se\ un\ aereo\ lo\ annuncia\ liberando\ il\ semaforo</p>\r\n
 numComments=4

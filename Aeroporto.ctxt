@@ -1,7 +1,10 @@
 #BlueJ class context
 comment0.target=Aeroporto
+comment0.text=\r\n\ <p>Classe\ dell'aeroporto</p>\r\n
 comment1.params=
 comment1.target=Aeroporto()
+comment1.text=\r\n\ <p>Crea\ la\ finestra,\ le\ due\ piste\ e\ la\ torre\ di\ controllo</p>\r\n
 comment2.params=
 comment2.target=int\ parcheggioLibero()
+comment2.text=\r\n\ <p>Assegna\ il\ primo\ parcheggio\ pronto,\ se\ disponibile</p>\r\n
 numComments=3

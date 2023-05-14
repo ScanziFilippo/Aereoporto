@@ -1,7 +1,9 @@
 import java.util.Iterator;
 import java.util.HashMap;
-
-public class TorreDiControllo extends Thread
+/**
+ * <p>Classe della torre di controllo</p>
+ */
+public class TorreDiControllo
 {
     HashMap<String,Aereo> aerei = new HashMap<>();
     Aeroporto aeroporto;
@@ -9,6 +11,9 @@ public class TorreDiControllo extends Thread
     {
         this.aeroporto = aeroporto;
     }
+    /**
+     * <p>Genera 6 aerei in aria e 1 a terra</p>
+     */
     public void generaAerei(){
         Aereo sette47 = new Aereo("Boeing 747", Stato.inAria, aeroporto);
         Aereo a380 = new Aereo("Airbus A380", Stato.aTerra, aeroporto);
@@ -20,10 +25,6 @@ public class TorreDiControllo extends Thread
             Aereo aereo = new Aereo(Stato.inAria, aeroporto);
             aerei.put(aereo.codice, aereo);
             aereo.start();
-        }
-    }
-    public void run(){
-        while(true){
         }
     }
 }

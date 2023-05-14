@@ -2,12 +2,18 @@ import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
 import java.awt.image.*;
-
+/**
+ * <p>Classe per la finestra grafica</p>
+ */
 public class Grafica extends JFrame implements MouseListener
 {
     JLabel sfondo;
     JPanel pannelloSfondo = new JPanel();
     Aeroporto aeroporto;
+    JLabel testo;
+    /**
+     * <p>Crea la finestra e un muose listener</p>
+     */
     public Grafica(Aeroporto aeroporto)
     {
         setSize(1297,682);
@@ -23,6 +29,9 @@ public class Grafica extends JFrame implements MouseListener
         pannelloSfondo.setLocation(0,-2);
         pannelloSfondo.setDoubleBuffered(true);*/
     }
+    /**
+     * <p>Aggiunge l'immagine di sfondo</p>
+     */
     void concludi(){
         sfondo = new JLabel(new ImageIcon("immagini/sfondi/sfondo.png"));
         //sfondo.setSize(100,100);
@@ -30,6 +39,12 @@ public class Grafica extends JFrame implements MouseListener
         add(sfondo);
         show();
     }
+    void aggiornaTesto(String stringa){
+        
+    }
+    /**
+     * <p>Eventi Muose listener per impartire agli aerei premuti di partire</p>
+     */
     public void mousePressed(MouseEvent e) {
         //System.out.println(e.getX() + " " +e.getY());
         if(e.getY() > 540 || e.getY() < 810){

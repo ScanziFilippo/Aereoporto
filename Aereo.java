@@ -1,4 +1,4 @@
-import java.security.SecureRandom;
+import java.security.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -18,6 +18,9 @@ public class Aereo extends Thread
     int variazioneVelocita = (int)(Math.random()*3);
     //aTerra, inAria, atterrando, decollando, inCoda
     Stato stato;
+    /**
+     * crea l'aereo casualmente a terra o in aria
+     */
     public Aereo(Aeroporto aeroporto)
     {
         if(Math.random() < .5){
@@ -52,6 +55,9 @@ public class Aereo extends Thread
             immagine.setIcon(newIcon);
         }
     }
+    /**
+     * crea l'aereo nello stato comunicato dall'utente
+     */
     public Aereo(Stato stato, Aeroporto aeroporto)
     {
         this.stato = stato;
@@ -82,6 +88,9 @@ public class Aereo extends Thread
             immagine.setIcon(newIcon);
         }
     }
+    /**
+     * crea l'aereo con il modello e lo stato comunicato
+     */
     public Aereo(String modello, Stato stato, Aeroporto aeroporto)
     {
         this.stato = stato;
@@ -112,6 +121,10 @@ public class Aereo extends Thread
             immagine.setIcon(newIcon);
         }
     }
+    
+    /**
+     * Restituisce codice univoco dell'aereo
+     */
     public String generaCodice() {
         String stringa = "";
         for (int i = 0; i < 2; i++) {
@@ -127,16 +140,25 @@ public class Aereo extends Thread
         return stringa;
     }
     
+    /**
+     * Restituisce modello causuale
+     */
     public String generaModello(){
         return modelliAerei[random.nextInt(modelliAerei.length)];
     }
     
+    /**
+     * Genera l'immagine dell'aereo in base al modello
+     */
     public String generaImmagine(){
         //System.out.println("immagini/" + modello + ".png");
         //return "immagini/" + modello + " - ORIGINALE.png";
         return "immagini/" + modello + ".png";
     }
     
+    /**
+     * Impartisce cosa fare all'aereo in base al suo stato
+     */
     public void run(){
         while(true){
             switch(stato) {
@@ -145,7 +167,7 @@ public class Aereo extends Thread
                     aeroporto.parcheggi[parcheggio] = null;
                     immagine.setLocation(1840 - immagine.getSize().width/2, immagine.location().y - 1);
                     if(immagine.getLocation().y < 370){
-                        System.out.println(codice + " " + modello + " ha parcheggiato");
+                        System.out.println(codice + " " + modello + " sta rullando alla pista");
                         stato = Stato.inAttesa;
                         //immagine.setLocation((320 * parcheggio + 160) - immagine.getSize().width/2, 680 - immagine.getSize().height/2);
                     }else{
