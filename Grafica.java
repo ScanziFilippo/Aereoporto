@@ -121,7 +121,7 @@ public class Grafica extends JFrame implements MouseListener
                 aeroporto.parcheggi[3].immagine.setIcon(newIcon);
                 aeroporto.parcheggi[3].stato = Stato.inCoda;
                 System.out.println("metto in coda " + aeroporto.parcheggi[3].modello);
-            }else if(e.getX() < 1920){
+            }else if(e.getX() < 1610){
                 ImageIcon icona = (ImageIcon) aeroporto.parcheggi[4].immagine.getIcon();
                 Image img = icona.getImage();
                 BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
@@ -136,6 +136,21 @@ public class Grafica extends JFrame implements MouseListener
                 aeroporto.parcheggi[4].immagine.setIcon(newIcon);
                 aeroporto.parcheggi[4].stato = Stato.inCoda;
                 System.out.println("metto in coda " + aeroporto.parcheggi[4].modello);
+            }else if(e.getX() < 1920){
+                ImageIcon icona = (ImageIcon) aeroporto.parcheggi[5].immagine.getIcon();
+                Image img = icona.getImage();
+                BufferedImage bufImg = new BufferedImage(img.getWidth(null), img.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+                Graphics2D g2 = bufImg.createGraphics();
+                g2.rotate(-Math.PI, bufImg.getWidth() / 2, bufImg.getHeight() / 2);
+                g2.drawImage(img, 0, 0, null);
+                g2.dispose();
+                int ampiezza = aeroporto.parcheggi[5].immagine.getSize().width;
+                int altezza = aeroporto.parcheggi[5].immagine.getSize().height;
+                aeroporto.parcheggi[5].immagine.setSize(altezza, ampiezza);
+                ImageIcon newIcon = new ImageIcon(bufImg);
+                aeroporto.parcheggi[5].immagine.setIcon(newIcon);
+                aeroporto.parcheggi[5].stato = Stato.inCoda     ;
+                System.out.println("metto in coda " + aeroporto.parcheggi[5].modello);
             }
         }
     }

@@ -184,7 +184,7 @@ public class Aereo extends Thread
                     break;
                 case inAttesa:
                     if(aeroporto.destra.richiediPista()){
-                        System.out.println(codice + " " + modello + " sta decollando sulla pista di destra");
+                        aeroporto.finestra.aggiornaTesto(codice + " " + modello + " sta decollando sulla pista di destra");
                         stato = Stato.decollandoD;
                         while(immagine.getLocation().y > 5){
                             immagine.setLocation(immagine.location().x, immagine.location().y - 1);
